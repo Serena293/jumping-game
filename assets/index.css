@@ -1,0 +1,29 @@
+body {
+  padding: 25px;
+  background: url(./img/background.jpg);
+  background-repeat: no-repeat;
+  background-size: auto;
+}
+
+.content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+  .score {
+    padding-top: 25px;
+  }
+
+@media screen and (max-width: 1300px) {
+    .content {
+        flex-direction: column;
+    }
+
+    body {
+      padding: 25px;
+      background: url(./img/background.jpg);
+      background-repeat: no-repeat;
+      background-size: 3000px;
+      background-position: center;
+}
+}
