@@ -3,6 +3,7 @@ body {
   background: url(./img/background.jpg);
   background-repeat: no-repeat;
   background-size: auto;
+  font-family: 'VT323', Arial, Helvetica, sans-serif;
 }
 
 .content {
@@ -11,6 +12,7 @@ body {
     align-items: center;
 }
   .score {
+    font-size: 35px;
     padding-top: 25px;
   }
 
