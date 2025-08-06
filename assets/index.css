@@ -1,15 +1,17 @@
 body {
-  padding: 25px;
   background: url(./img/background.jpg);
   background-repeat: no-repeat;
   background-size: auto;
   font-family: 'VT323', Arial, Helvetica, sans-serif;
+  margin: 0;
 }
 
 .content {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding: 0px 95px;
+
 }
   .score {
     font-size: 35px;
@@ -17,7 +19,7 @@ body {
   }
 
   .main-character {
-    padding-top: 500px;
+    padding: 500px 130px 0;
     width: 100px;
     height: 90px;
   }
@@ -25,6 +27,7 @@ body {
 footer {
   background-color: #1f2937;
   padding: 10px 25px;
+  margin: 0;
 }
 
 @media screen and (max-width: 1300px) {
@@ -33,10 +36,14 @@ footer {
     }
 
     body {
-      padding: 25px;
       background: url(./img/background.jpg);
       background-repeat: no-repeat;
       background-size: 3000px;
       background-position: center;
+      margin: 0;
 }
+
+   .main-character {
+       padding: 500px 70px 0;
+   }
 }
