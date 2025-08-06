@@ -1,9 +1,10 @@
 body {
-  background: url(./img/background.jpg);
-  background-repeat: no-repeat;
-  background-position: center center;
-  background-size: auto;
-  font-family: 'VT323', Arial, Helvetica, sans-serif;
+  background: url(./img/background.jpg) no-repeat fixed center;
+  background-size: cover;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   margin: 0;
   overflow: hidden;
 }
