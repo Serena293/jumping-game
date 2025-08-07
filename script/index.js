@@ -22,7 +22,7 @@ const isAlive = () => {
     let playerTop = parseInt(window.getComputedStyle(player).getPropertyValue("top"));
     let playerLeft = parseInt(window.getComputedStyle(player).getPropertyValue("left"));
     let objectLeft = parseInt(window.getComputedStyle(object).getPropertyValue("left"));
-    
+
     
  if (objectLeft < 200 && objectLeft > 0) {
       // Only game over if player is not jumping (top position is at ground level)
