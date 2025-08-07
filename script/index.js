@@ -1,12 +1,16 @@
 const player = document.getElementById("player");
 const object = document.getElementById("object");
+const displayScore = document.getElementById("score"); // This should be the <span> with "0"
+
+let score = 0;
+let scored = false;
 
 const jump = () => {
-  if (!player.classList.contains("jump")) {  
+  if (!player.classList.contains("jump")) {
     player.classList.add("jump");
     setTimeout(() => {
       player.classList.remove("jump");
-    }, 300);  
+    }, 400);
   }
 };
 
@@ -18,19 +22,35 @@ document.addEventListener("keydown", (event) => {
 });
 
 const isAlive = () => {
-  setInterval(() => {
-    let playerTop = parseInt(window.getComputedStyle(player).getPropertyValue("top"));
-    let playerLeft = parseInt(window.getComputedStyle(player).getPropertyValue("left"));
-    let objectLeft = parseInt(window.getComputedStyle(object).getPropertyValue("left"));
-    
-    
- if (objectLeft < 200 && objectLeft > 0) {
-      // Only game over if player is not jumping (top position is at ground level)
-      if (playerTop >= 350 && !player.classList.contains("jump")) {
-        alert("game over");
-      }
+  const interval = setInterval(() => {
+    const playerRect = player.getBoundingClientRect();
+    const objectRect = object.getBoundingClientRect();
+
+    const buffer = 10;
+
+   
+    if (
+      playerRect.right > objectRect.left + buffer &&
+      playerRect.left < objectRect.right - buffer &&
+      playerRect.bottom > objectRect.top + buffer &&
+      playerRect.top < objectRect.bottom - buffer
+    ) {
+      alert(`Game over. Score: ${score}` );
+      clearInterval(interval);
     }
-  }, 10); 
+
+ 
+    if (objectRect.right < playerRect.left && !scored) {
+      score += 10;
+      displayScore.textContent = score;
+      scored = true;
+    }
+
+    
+    if (objectRect.left > window.innerWidth) {
+      scored = false;
+    }
+  }, 50);
 };
 
 isAlive();
