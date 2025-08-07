@@ -1,0 +1,102 @@
+body, main {
+  background: url(./img/background.jpg) no-repeat fixed center;
+  background-size: cover;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin: 0;
+  overflow: hidden;
+}
+
+header {
+  margin: 1rem;
+  padding: 0;
+}
+
+.game {
+  width: 100%;
+  height: 100vh;
+  border: 2px solid black;
+
+  position: relative;
+}
+
+#player {
+  width: 200px;
+  height: 200px;
+  background-image: url(./img/kenguru.png);
+  background-size: 200px;
+
+  position: absolute;
+  top: 370px;
+  left: 50px ;
+}
+
+hr {
+  height: 70px;
+  width: 100%;
+  background-color: rgb(102, 95, 95);
+  border: none;
+  margin: 0;
+}
+
+.score p {
+  margin-top: 0;
+  margin-bottom: 0;
+  font-size: 40px;
+  text-align: end;
+  margin-right: 50px;
+}
+
+.object {
+  height: 40px;
+  width: 30px;
+  background-color: brown;
+
+  position: relative;
+  bottom: -200px;
+}
+
+.jump{
+  animation: jump linear 0.3s;
+}
+@keyframes jump {
+     0% {
+    top: 370px;
+  }
+  30% {
+    top: 310px;
+  }
+  50% {
+    top: 24 0px;
+  }
+  80% {
+    top: 310px;
+  }
+  100% {
+    top: 370px;
+  } 
+}
+
+
+#object{
+  width: 20px;
+  height: 40px;
+  position: absolute;
+  background-color: brown;
+  bottom: 0;
+  right: 10px;
+
+  animation: object-animation linear infinite 4s;
+}
+
+@keyframes object-animation {
+  0% {
+    left: 1080px;
+  }
+    
+  100% {
+    left: -20px;
+  }
+}
