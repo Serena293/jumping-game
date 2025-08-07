@@ -1,4 +1,5 @@
-body, main {
+body,
+main {
   background: url(./img/background.jpg) no-repeat fixed center;
   background-size: cover;
   height: 100vh;
@@ -7,6 +8,7 @@ body, main {
   justify-content: space-between;
   margin: 0;
   overflow: hidden;
+  font-family: "VT323", Arial, Helvetica, sans-serif;
 }
 
 header {
@@ -23,14 +25,18 @@ header {
 }
 
 #player {
-  width: 200px;
-  height: 200px;
-  background-image: url(./img/kenguru.png);
+  width: 100px;
+  height: 100px;
+  /* background-image: url(./img/kenguru.png);  */
   background-size: 200px;
 
+  background: yellow;
+  border-radius: 50%;
   position: absolute;
-  top: 370px;
-  left: 50px ;
+  bottom: 0;
+  left: 50px;
+
+  /* outline: 2px dashed red; */
 }
 
 hr {
@@ -41,7 +47,7 @@ hr {
   margin: 0;
 }
 
-.score p {
+.score-div p {
   margin-top: 0;
   margin-bottom: 0;
   font-size: 40px;
@@ -49,54 +55,62 @@ hr {
   margin-right: 50px;
 }
 
-.object {
-  height: 40px;
-  width: 30px;
-  background-color: brown;
 
-  position: relative;
-  bottom: -200px;
+#object {
+  width: 25px;
+  height: 50px;
+  background: brown;
+  position: absolute;
+  bottom: 0;
+  left: 100vw;
+  animation: object-animation linear infinite 4s;
 }
+    
 
-.jump{
-  animation: jump linear 0.3s;
+.jump {
+  animation: jump linear 0.5s;
 }
 
 @keyframes jump {
-   0% {
+     0% {
     top: 370px;
   }
   30% {
     top: 310px;
   }
   50% {
-    top: 24 0px;
+    top: 240px;
   }
   80% {
     top: 310px;
   }
   100% {
     top: 370px;
-  } 
+  }  */
+
+  0% {
+    bottom: 0;
+  }
+  30% {
+    bottom: 80px;
+  }
+  50% {
+    bottom: 170px;
+  }
+  80% {
+    bottom: 80px;
+  }
+  100% {
+    bottom: 0;
+  }
 }
 
-
-#object{
-  width: 20px;
-  height: 40px;
-  position: absolute;
-  background-color: brown;
-  bottom: 0;
-  right: 10px;
-
-  animation: object-animation linear infinite 4s;
-}
 
 @keyframes object-animation {
   0% {
-    left: 1080px;
+    left: 100vw;
   }
-    
+
   100% {
     left: -20px;
   }
