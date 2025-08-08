@@ -4,18 +4,41 @@ body {
   height: 100vh;
   margin: 0;
   overflow: hidden;
-  font-family: "VT323", Arial, Helvetica, sans-serif;
+  font-family: "VT323", monospace;
 }
 
 header {
   margin: 1rem;
 }
 
+.score-div{
+  display: flex;
+  justify-content: space-between;
+}
 .score-div p {
   font-size: 40px;
-  text-align: end;
   margin: 0 50px 0 0;
 }
+button {
+  padding: 8px 16px;
+  font-family: 'VT323', monospace;
+  font-size: 16px;
+  cursor: pointer;
+
+  color: #3b2a2a;         
+  background-color: #f2d48f; 
+
+  border: 4px solid #8b5a2b;
+  border-radius: 0; 
+
+ 
+  box-shadow: inset -4px -4px 0 0 rgba(0, 0, 0, 0.2),
+              4px 4px 0 0 rgba(0, 0, 0, 0.2);
+
+  image-rendering: pixelated;
+}
+
+
 
 .morning {
   background-color: #87CEEB;
@@ -218,4 +241,31 @@ hr {
   100% {
     left: -70px;
   }
+}
+
+/* modal */
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    visibility: hidden;
+}
+
+.modal.show {
+    visibility: visible;
+}
+
+.modal-content {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    max-width: 400px;
 }

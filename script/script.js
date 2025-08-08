@@ -1,8 +1,12 @@
 const player = document.getElementById("player");
 const rock1 = document.getElementById("rock1");
 const rock2 = document.getElementById("rock2");
-const displayScore = document.getElementById("score"); // This should be the <span> with "0"
-
+const displayScore = document.getElementById("score"); 
+const modal = document.getElementById("gameModal");
+const modalTitle = document.getElementById("modalTitle");
+const modalMessage = document.getElementById("modalMessage");
+const modalBtn = document.getElementById("modalBtn");
+const stopBtn = document.getElementById("stopBtn");
 const gameContainer = document.querySelector('.game');
 const timePhases = ['morning', 'afternoon', 'evening', 'night'];
 
@@ -43,11 +47,9 @@ const changeTimeOfDay = () => {
       stars.style.opacity = 1;
       break;
   }
-  // Update index for next phase
   currentPhase = (currentPhase + 1) % timePhases.length;
 };
 
-// Change every 30 seconds
 setInterval(changeTimeOfDay, 10000);
 
 const jump = () => {
@@ -60,7 +62,6 @@ const jump = () => {
     setTimeout(() => {
       player.classList.remove("jump");
       player.classList.add("jumping")
-      // Allow jump2 only during jump, not after landing
       if (!player.classList.contains("jump2")) {
         isJumping = false;
       }
@@ -72,7 +73,7 @@ const jump = () => {
 
 const jump2 = () => {
   canDoubleJump = false;
-  player.classList.remove("jump"); // cancel base jump animation if needed
+  player.classList.remove("jump");
   player.classList.add("jump2");
 
   setTimeout(() => {
@@ -88,28 +89,25 @@ document.addEventListener("keydown", (event) => {
   }
 });
 
-function restartAnimation(element) {
-  element.style.display = "none";               // Hide blocks when game starts
-  element.style.animation = "none";             // Reseting animation
-  element.offsetHeight;                         // Force reflow
-  element.style.display = "block"               // Show blocks
-  element.style.animation = "object-animation linear 2s"; // Restart animation (not infinite)
+const restartAnimation = (element) => {
+  element.style.display = "none";               
+  element.style.animation = "none";             
+  element.offsetHeight;                         
+  element.style.display = "block"               
+  element.style.animation = "object-animation linear 2s"; 
 }
 
-//Random rock spam logic
-function spawnRock() {
-  // Hide both rocks first
+const spawnRock = () => {
   rock1.style.display = "none";
   rock2.style.display = "none";
 
   const random = Math.random() < 0.5 ? rock1 : rock2;
   restartAnimation(random);
 
-  // Wait for animation to finish (2s), then call again
   rockSpawnInterval = setTimeout(spawnRock, 2200);
 }
 
-function startGame() {
+const startGame = () => {
   score = 0
   displayScore.textContent = score
   player.style.top = "570px"
@@ -117,11 +115,9 @@ function startGame() {
   if (isAlive) clearInterval(isAlive);
   if (rockSpawnInterval) clearInterval(rockSpawnInterval);
 
-  // Stop rock animations during countdown
   rock1.style.animation = "none";
   rock2.style.animation = "none";
 
-  // Show countdown
   const countdownEl = document.getElementById("countdown");
   countdownEl.style.display = "block";
 
@@ -140,7 +136,6 @@ function startGame() {
 
         spawnRock();
 
-        // Start game logic
         isAlive = setInterval(() => {
           const playerTop = parseInt(window.getComputedStyle(player).getPropertyValue("top"));
           const rock1Left = parseInt(window.getComputedStyle(rock1).getPropertyValue("left"));
@@ -159,16 +154,41 @@ function startGame() {
             clearTimeout(rockSpawnInterval)
             setTimeout(() => {
               alert(`Game Over! Nice try\nYou've scored ${score} points.`);
-              startGame(); // restart
+              startGame(); 
             }, 100);
           }
         }, 50);
-      }, 1000); // delay hiding "GO!" for 1 second
+      }, 1000);
     }
   }, 1000);
 }
 
-alert('Welcome, click "OK" to begin');
-alert('In game controls:\n -Use "space" button to jump\n -While in the air press "space" button again to perform rotation in the air\n\nGame advice:\nJump a bit in advance to avoid collisions.')
-startGame();
-changeTimeOfDay();
+const showModal = (title, message, buttonText, callback) => {
+    modalTitle.textContent = title;
+    modalMessage.textContent = message;
+    modalBtn.textContent = buttonText;
+    modal.classList.add("show");
+
+    modalBtn.onclick = () => {
+        modal.classList.remove("show");
+        if (callback) callback();
+    };
+}
+
+stopBtn.addEventListener("click", () => {
+    clearInterval(isAlive);
+    clearTimeout(rockSpawnInterval);
+    showModal("Game ended", `Your score: ${score}`, "Play Again", startGame);
+});
+
+window.addEventListener("load", () => {
+    showModal(
+        "Welcome",
+        'In game controls:\n- Press "Space" to jump\n- Press "Space" again in the air to rotate\n\nTip: Jump early to avoid collisions.',
+        "Start",
+        () => {
+            startGame();
+            changeTimeOfDay();
+        }
+    );
+});
