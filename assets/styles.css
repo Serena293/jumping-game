@@ -1,11 +1,7 @@
-body,
-main {
+body {
   background: url(./img/background.jpg) no-repeat fixed center;
   background-size: cover;
   height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
   margin: 0;
   overflow: hidden;
   font-family: "VT323", Arial, Helvetica, sans-serif;
@@ -13,30 +9,114 @@ main {
 
 header {
   margin: 1rem;
-  padding: 0;
+}
+
+.score-div p {
+  font-size: 40px;
+  text-align: end;
+  margin: 0 50px 0 0;
+}
+
+.morning {
+  background-color: #87CEEB;
+}
+
+.afternoon {
+  background-color: #00BFFF;
+}
+
+.evening {
+  background-color: #FF8C00;
+}
+
+.night {
+  background-color: #191970;
+}
+
+#sun,
+#moon,
+#stars {
+  position: absolute;
+  top: 50px;
+  left: 800px;
+  width: 80px;
+  height: 80px;
+  opacity: 0;
+  transition: opacity 2s ease;
+  z-index: 1;
+}
+
+#sun {
+  background: radial-gradient(circle at center, #FFD700, #FFA500);
+  border-radius: 50%;
+}
+
+#moon {
+  background: radial-gradient(circle at center, #f0f0f0, #ccc);
+  border-radius: 50%;
+}
+
+#stars {
+  width: 100%;
+  height: 100%;
+  background-image: radial-gradient(white 1px, transparent 1px);
+  background-size: 20px 20px;
+  background-repeat: repeat;
+  top: 0;
+  left: 0;
+  z-index: 0;
+  opacity: 0;
 }
 
 .game {
-  width: 100%;
-  height: 100vh;
+  width: 1000px;
+  height: 700px;
   border: 2px solid black;
-
+  margin: auto;
   position: relative;
+
+  transition: background-color 2s ease;
 }
 
 #player {
-  width: 100px;
+  width: 115px;
   height: 100px;
-  /* background-image: url(./img/kenguru.png);  */
-  background-size: 200px;
-
-  background: yellow;
-  border-radius: 50%;
-  position: absolute;
-  bottom: 0;
+  background-image: url(./img/kenguru.png);
+  background-size: 115px;
+  position: relative;
+  top: 570px;
   left: 50px;
+  z-index: 10;
+}
 
-  /* outline: 2px dashed red; */
+#rock1,
+#rock2 {
+  display: none;
+}
+
+#rock1 {
+  width: 85px;
+  height: 70px;
+  background-image: url(./img/rock1.png);
+  background-size: 85px;
+  position: absolute;
+  top: 600px;
+  left: 915px;
+  z-index: 10;
+  animation: none;
+  /*no auto animation */
+}
+
+#rock2 {
+  width: 85px;
+  height: 100px;
+  background-image: url(./img/rock2.png);
+  background-size: 85px 100px;
+  position: absolute;
+  top: 570px;
+  left: 915px;
+  z-index: 10;
+  animation: none;
 }
 
 hr {
@@ -45,72 +125,97 @@ hr {
   background-color: rgb(102, 95, 95);
   border: none;
   margin: 0;
-}
-
-.score-div p {
-  margin-top: 0;
-  margin-bottom: 0;
-  font-size: 40px;
-  text-align: end;
-  margin-right: 50px;
-}
-
-
-#object {
-  width: 25px;
-  height: 50px;
-  background: brown;
   position: absolute;
-  bottom: 0;
-  left: 100vw;
-  animation: object-animation linear infinite 4s;
+  top: 630px;
 }
-    
+
+#countdown {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 80px;
+  color: white;
+  text-shadow: 2px 2px 5px black;
+  z-index: 999;
+  display: none;
+}
 
 .jump {
-  animation: jump linear 0.5s;
+  animation: jump linear 0.55s;
 }
-@keyframes jump {
-  /* 0% {
-    top: 370px;
-  }
-  30% {
-    top: 310px;
-  }
-  50% {
-    top: 240px;
-  }
-  80% {
-    top: 310px;
-  }
-  100% {
-    top: 370px;
-  }  */
 
+.jump2 {
+  animation: jump2 linear 0.3s;
+}
+
+.jumping {
+  animation: jumping linear infinite 0.5s;
+}
+
+@keyframes jumping {
   0% {
-    bottom: 0;
+    top: 570px;
   }
-  30% {
-    bottom: 80px;
-  }
+
   50% {
-    bottom: 170px;
+    top: 520px;
   }
-  80% {
-    bottom: 80px;
-  }
+
   100% {
-    bottom: 0;
+    top: 570px
   }
 }
 
+@keyframes jump {
+  0% {
+    top: 570px;
+  }
+
+  30% {
+    top: 480px;
+  }
+
+  50% {
+    top: 430px;
+  }
+
+  70% {
+    top: 450px;
+  }
+
+  85% {
+    top: 480px
+  }
+
+  100% {
+    top: 570px;
+  }
+}
+
+@keyframes jump2 {
+  0% {
+    top: 430px;
+    transform: rotate(10deg);
+  }
+
+  50% {
+    top: 430px;
+    transform: rotate(180deg);
+  }
+
+  100% {
+    top: 570px;
+    transform: rotate(360deg);
+  }
+}
 
 @keyframes object-animation {
   0% {
-    left: 100vw;
+    left: 915px;
   }
 
   100% {
-    left: -20px;
+    left: -70px;
   }
 }
