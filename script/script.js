@@ -26,6 +26,9 @@ let rockSpawnInterval;
 
 let isAlive;
 
+let gameRunning = false;
+let countdownInterval;
+
 const changeTimeOfDay = () => {
   gameContainer.classList.remove(...timePhases);
   gameContainer.classList.add(timePhases[currentPhase]);
@@ -108,12 +111,14 @@ const spawnRock = () => {
 };
 
 const startGame = () => {
-  score = 0;
-  displayScore.textContent = score;
-  player.style.top = "570px";
+  gameRunning = true;
+  score = 0
+  displayScore.textContent = score
+  player.style.top = "570px"
 
   if (isAlive) clearInterval(isAlive);
   if (rockSpawnInterval) clearInterval(rockSpawnInterval);
+  if (countdownInterval) clearInterval(countdownInterval);
 
   rock1.style.animation = "none";
   rock2.style.animation = "none";
@@ -124,7 +129,13 @@ const startGame = () => {
   let countdownValue = 3;
   countdownEl.textContent = countdownValue;
 
-  const countdownInterval = setInterval(() => {
+  countdownInterval = setInterval(() => {
+    if (!gameRunning) {
+      clearInterval(countdownInterval);
+      countdownEl.style.display = "none";
+      return;
+    }
+
     countdownValue--;
     if (countdownValue > 0) {
       countdownEl.textContent = countdownValue;
@@ -132,6 +143,8 @@ const startGame = () => {
       clearInterval(countdownInterval);
       countdownEl.textContent = "GO!";
       setTimeout(() => {
+        if (!gameRunning) return;
+
         countdownEl.style.display = "none";
 
         spawnRock();
@@ -185,9 +198,11 @@ const showModal = (title, message, buttonText, callback) => {
 };
 
 stopBtn.addEventListener("click", () => {
-  clearInterval(isAlive);
-  clearTimeout(rockSpawnInterval);
-  showModal("Game ended", `Your score: ${score}`, "Play Again", startGame);
+    gameRunning = false;
+    clearInterval(isAlive);
+    clearTimeout(rockSpawnInterval);
+    clearInterval(countdownInterval);
+    showModal("Game ended", `Your score: ${score}`, "Play Again", startGame);
 });
 
 window.addEventListener("load", () => {
